@@ -1,0 +1,238 @@
+@import '../../../assets/variables';
+
+.header {
+    width: 100%;
+    height: 100px;
+    // position: fixed;
+    z-index: 1999;
+    display: flex;
+    align-items: center;
+    background-color: $white;
+
+    &__nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &__link {
+            &__img {
+                object-fit: contain;
+            }
+        }
+
+        &__list {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 600px;
+
+            &__item {
+                &__link {
+                    font-size: 16px;
+                    font-weight: 600;
+                    text-transform: capitalize;
+                    position: relative;
+                    transition: $transition;
+                    color: $black;
+                    margin-bottom: 12px;
+
+                    &:before {
+                        position: absolute;
+                        content: '';
+                        width: 0px;
+                        height: 2px;
+                        left: 0;
+                        right: 0;
+                        bottom: -5px;
+                        transition: $transition;
+                        opacity: 0;
+                        background-color: $black;
+                    }
+
+                    &:hover,
+                    &:focus,
+                    &.active {
+                        color: $black;
+
+                        &:before {
+                            width: 90%;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        &__btnHam {
+            display: none;
+        }
+
+        &__btn {
+            background-color: transparent;
+            border: transparent;
+
+            &__link {
+                font-weight: 600;
+                border-radius: 30px;
+                width: 150px;
+                display: inline-block;
+                font-size: .9rem;
+                color: $black;
+                border: 1px solid $black;
+                padding: 12px 15px;
+                position: relative;
+                z-index: 1;
+
+                &:before {
+                    border-radius: 30px;
+                    position: absolute;
+                    content: '';
+                    left: 0;
+                    top: 0;
+                    width: 0;
+                    height: 100%;
+                    opacity: 0;
+                    z-index: -1;
+                    transition: $transition;
+                    background-color: $black;
+                }
+
+                &:after {
+                    border-radius: 30px;
+                    position: absolute;
+                    content: '';
+                    right: 0;
+                    top: 0;
+                    width: 0;
+                    height: 100%;
+                    opacity: 0;
+                    z-index: -1;
+                    transition: $transition;
+                    background-color: $black;
+                }
+
+                &:hover {
+                    color: #fff;
+
+                    &:before {
+                        width: 100%;
+                        opacity: 1;
+                    }
+
+                    &:after {
+                        width: 100%;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+@media only screen and (max-width: 991px) {
+    .header {
+        &__nav {
+            &__list {
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                width: 70%;
+                height: 70vh;
+                display: block;
+                position: fixed;
+                text-align: center;
+                left: -5%;
+                top: 100px;
+                z-index: 999;
+                transform: translateX(155%);
+                transition: $transition;
+                background-color: $white;
+
+                &__item {
+                    position: relative;
+                    left: 10%;
+                    display: flex;
+                    justify-content: center;
+                    width: 80%;
+                    padding: 1.2rem 0;
+                    color: $black;
+                    font-size: 1rem;
+                    margin-bottom: 12px;
+
+                    &:before {
+                        bottom: 5px;
+                    }
+
+                }
+            }
+
+            &__btnHam {
+                margin-right: .5rem;
+                display: block;
+                width: 33px;
+                height: 3px;
+                background-color: #000;
+                border-radius: 5px;
+                transition: all .5s ease-in-out;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    width: 33px;
+                    height: 3px;
+                    background-color: #000;
+                    border-radius: 5px;
+                    transition: all .5s ease-in-out;
+                    box-shadow: 0 2px 5px rgba(121, 121, 121, 0.2);
+                    transform: translateY(-10px);
+                }
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    width: 33px;
+                    height: 3px;
+                    background-color: #000;
+                    border-radius: 5px;
+                    transition: all .5s ease-in-out;
+                    box-shadow: 0 2px 5px rgba(138, 138, 138, 0.2);
+                    transform: translateY(10px);
+                }
+            }
+
+            &__btn {
+                justify-content: center;
+                display: none;
+                position: fixed;
+                top: 140px;
+                z-index: 999;
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+
+.headerBc {
+    background-color: $white;
+    box-shadow: 0 2px 5px rgba(53, 48, 46, 0.2);
+}
+
+.active_nav {
+    transform: translateX(50%) !important;
+    transition: all .5s ease-in-out !important;
+}
+
+.active_Ham {
+    transform: translateX(-50px);
+    background-color: transparent !important;
+
+    &:before {
+        transform: rotate(45deg) translate(35px, -35px) !important;
+    }
+
+    &:after {
+        transform: rotate(-45deg) translate(35px, 35px) !important;
+    }
+}

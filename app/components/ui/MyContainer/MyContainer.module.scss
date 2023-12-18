@@ -1,0 +1,40 @@
+.myContainer{
+    width: 1320px;
+    margin: 0 auto;
+    padding: 0 12px;
+}
+
+
+@media (max-width: 1399px) {
+    .myContainer {
+        width: 1140px;
+    }
+}
+
+
+@media (max-width: 1199px) {
+    .myContainer {
+        width: 960px;
+    }
+}
+
+
+@media (max-width: 991px) {
+    .myContainer {
+        width: 720px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .myContainer {
+        width: 540px;
+    }
+}
+
+
+@media (max-width: 576px) {
+    .myContainer {
+        width: 100%;
+    }
+}
