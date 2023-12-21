@@ -11,7 +11,7 @@ const Header = () => {
     const { lan, url } = React.useContext(Context);
     const [nav, setNav] = React.useState(false);
     const [headerData, setHeaderData] = React.useState();
-    const router = useRouter();
+    const { pathname } = useRouter();
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -29,6 +29,7 @@ const Header = () => {
 
         fetchData();
     }, [url]);
+
 
     const handleNavClick = () => {
         setNav(false);
@@ -52,7 +53,7 @@ const Header = () => {
                         {headerData?.map((item) => (
                             <li key={item.id} className={styles.header__nav__list__item}>
                                 <Link
-                                    className={`${styles.header__nav__list__item__link} ${router.pathname === item.link ? styles.active : ""}`}
+                                    className={`${styles.header__nav__list__item__link} ${pathname === item.link ? styles.active : ""}`}
                                     href={item.link}
                                 >
                                     {item[`nav_${lan}`]}

@@ -13,7 +13,7 @@ const Index = () => {
                 <meta name="keywords" content="" /> // ключевые слова, страницы
                 <meta name="image_src" content="" /> // URL для img
 
-                <meta property="og:title" content="Index" /> // Название страницы
+                <meta property="og:title" content="Home" /> // Название страницы
                 <meta property="og:description" content="" /> // Описание страницы
                 <meta property="og:image" content="" /> // URL для img: https://example.com/image.jpg
                 <meta property="og:url" content="" /> // оснавное URL: https://example.com/page-url
