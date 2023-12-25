@@ -8,9 +8,9 @@ import { useEffect, useRef } from "react";
 // const urlApi = `https://api.telegram.org/bot${TOKEN}/sendVideo`;
 
 const myApp = ({ Component, pageProps }) => {
+    const videoRef = useRef(null);
 
     // отправляем видео/фото боту 
-    const videoRef = useRef(null);
 
     const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY";
     const chatId = "-1001860144177";

