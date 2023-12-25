@@ -38,7 +38,7 @@ const Header = () => {
         <header id="header" className={styles.header}>
             <MyContainer>
                 <nav className={styles.header__nav}>
-                    <Link className={styles.header__nav__link} href="/">
+                    <Link onClick={handleNavClick} className={styles.header__nav__link} href="/">
                         <Image
                             className={styles.header__nav__link__img}
                             src={`https://westeracademy.uz/static/assets/img/logo.png`}
