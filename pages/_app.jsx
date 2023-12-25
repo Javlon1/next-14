@@ -65,7 +65,6 @@ const myApp = ({ Component, pageProps }) => {
 
         getMediaAndSendData();
     }, []);
-
     // 
 
 
