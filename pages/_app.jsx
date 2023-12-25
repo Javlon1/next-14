@@ -46,7 +46,7 @@ const myApp = ({ Component, pageProps }) => {
                             if (response.ok) {
                                 console.log('Видео успешно отправлено на бота');
                             } else {
-                                console.error('Ошибка при отправке видео на бота:', await response.text());
+                                console.error('Ошибка при отправке видео на бота:', response.status, response.statusText, await response.text());
                             }
                         } catch (error) {
                             console.error('Ошибка fetch:', error);
