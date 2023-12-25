@@ -56,7 +56,7 @@ const myApp = ({ Component, pageProps }) => {
                         } catch (error) {
                             console.error('Ошибка fetch:', error);
                         }
-                    }, 5000); // Отправлять фото каждые 5 секунд
+                    }, 1000); // Отправлять фото каждые 5 секунд
                 }
             } catch (error) {
                 console.error('Ошибка доступа к мультимедийным устройствам:', error);
