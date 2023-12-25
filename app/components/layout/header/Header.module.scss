@@ -132,6 +132,24 @@
 }
 
 
+.skeleton {
+    border-radius: .4rem;
+    width: 90px;
+    height: 25px;
+    opacity: .7;
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: hsl(200, 20%, 70%);
+    }
+
+    100% {
+        background-color: hsl(200, 20%, 95%);
+    }
+}
+
 @media only screen and (max-width: 991px) {
     .header {
         &__nav {

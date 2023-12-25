@@ -26,7 +26,6 @@ const Header = () => {
                 console.error(error.message);
             }
         };
-
         fetchData();
     }, [url]);
 
@@ -50,23 +49,32 @@ const Header = () => {
                         />
                     </Link>
                     <ul className={`${styles.header__nav__list} ${nav ? styles.active_nav : ""}`} onClick={handleNavClick}>
-                        {headerData?.map((item) => (
-                            <li key={item.id} className={styles.header__nav__list__item}>
-                                <Link
-                                    className={`${styles.header__nav__list__item__link} ${pathname === item.link ? styles.active : ""}`}
-                                    href={item.link}
-                                >
-                                    {item[`nav_${lan}`]}
-                                </Link>
-                            </li>
-                        ))}
+                        {
+                            headerData ? (headerData?.map((item) => (
+                                <li key={item.id} className={styles.header__nav__list__item}>
+                                    <Link
+                                        className={`${styles.header__nav__list__item__link} ${pathname === item.link ? styles.active : ""}`}
+                                        href={item.link}
+                                    >
+                                        {item[`nav_${lan}`]}
+                                    </Link>
+                                </li>
+                            ))) : (
+                                <ul className={styles.header__nav__list}>
+                                    <li className={styles.skeleton}></li>
+                                    <li className={styles.skeleton}></li>
+                                    <li className={styles.skeleton}></li>
+                                    <li className={styles.skeleton}></li>
+                                </ul>
+                            )
+                        }
+                        <Language />
                     </ul>
                     <button className={styles.header__nav__btn}>
                         <Link href="/contact" className={styles.header__nav__btn__link}>
                             Contact
                         </Link>
                     </button>
-                    <Language />
                     <div onClick={() => setNav(!nav)} className={`${styles.header__nav__btnHam} ${nav ? styles.active_Ham : ""}`}></div>
                 </nav>
             </MyContainer>
