@@ -1,6 +1,6 @@
-export const getService = async (endpoint, url) => {
+export const getService = async (endpointGet, url) => {
 
-    const fullUrl = `${url}/${endpoint}`;
+    const fullUrl = `${url}/${endpointGet}`;
 
     try {
         const response = await fetch(fullUrl, {
@@ -24,12 +24,12 @@ export const getService = async (endpoint, url) => {
 
 //
 // const [data, setData] = React.useState(); // edit
-// const endpoint = 'menu';// edit
+// const endpointGet = 'menu';// edit
 
 // React.useEffect(() => {
 //     const fetchData = async () => {
 //         try {
-//             const result = await getService(endpoint, url);
+//             const result = await getService(endpointGet, url);
 //             setData(result); // edit
 //         } catch (error) {
 //             console.error('Error fetching data:', error);

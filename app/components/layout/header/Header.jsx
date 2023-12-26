@@ -15,12 +15,12 @@ const Header = () => {
 
     //
     const [headerData, setHeaderData] = React.useState(); // edit
-    const endpoint = 'menu';// edit
+    const endpointGet = 'menu';// edit
 
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await getService(endpoint, url);
+                const result = await getService(endpointGet, url);
                 setHeaderData(result); // edit
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -42,7 +42,7 @@ const Header = () => {
                     <Link onClick={handleNavClick} className={styles.header__nav__link} href="/">
                         <Image
                             className={styles.header__nav__link__img}
-                            src={``}
+                            src={`https://www.shutterstock.com/shutterstock/photos/353675519/display_1500/stock-vector-j-letter-logo-formed-by-twisted-lines-wool-mark-font-style-vector-design-template-elements-for-353675519.jpg`}
                             width={157}
                             height={50}
                             alt="logo"

@@ -15,6 +15,6 @@ module.exports = {
 
   // Настройки для компонента next/image
   images: {
-    domains: ['westeracademy.uz',"i.pinimg.com"], // Домен сайта
+    domains: ["www.shutterstock.com"], // Домен сайта
   },
 };

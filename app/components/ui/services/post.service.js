@@ -1,5 +1,5 @@
-export const postService = async (url, endpoint, data) => {
-    const fullUrl = `${url}/${endpoint}`;
+export const postService = async (url, endpointPost, data) => {
+    const fullUrl = `${url}/${endpointPost}`;
 
     try {
         const response = await fetch(fullUrl, {
@@ -25,14 +25,14 @@ export const postService = async (url, endpoint, data) => {
 
 
 //
-// const endpoint = 'menu';// edit
 // const [formData, setFormData] = useState({
-//     name: '',
-//     tel: '998',
-// });
+    //     name: '',
+    //     tel: '998',
+    // });
+// const endpointPost = 'menu';// edit
 
-// const [loading, setLoading] = useState(false);
-// const [error, setError] = useState(null);
+// const [postLoading, setPostLoading] = useState(false);
+// const [postError, setPostError] = useState(null);
 
 // const handleInputChange = (e) => {
 //     setFormData({
@@ -44,12 +44,12 @@ export const postService = async (url, endpoint, data) => {
 // const handleSubmit = async (e) => {
 //     e.preventDefault();
 
-//     setError(null);
+//     setPostError(null);
 
 //     try {
-//         setLoading(true);
+//         setPostLoading(true);
 
-//         const data = await postService(url, endpoint, {
+//         const data = await postService(url, endpointPost, {
 //             name: formData.name,
 //             tel: formData.tel,
 //         });
@@ -61,9 +61,15 @@ export const postService = async (url, endpoint, data) => {
 //             tel: '998',
 //         });
 //     } catch (error) {
-//         setError(error.message);
+//         setPostError(error.message);
 //     } finally {
-//         setLoading(false);
+//         setPostLoading(false);
 //     }
 // };
-//
+// //
+
+// <button type="submit" disabled={postLoading}>
+//     {postLoading ? 'Submitting...' : 'Submit'}
+// </button>
+
+// { postError && <p style={{ color: 'red' }}>{postError}</p> }

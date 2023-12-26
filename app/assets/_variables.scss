@@ -5,29 +5,3 @@ $radius: 1rem;
 $transition: .5s all ease;
 
 // @media only screen and (max-width: px) {}
-
-// preventDefault()
-
-// <-- POST -->
-
-//  const formReg = (e) => {
-
-//      e.preventDefault()
-//      const el = e.target.elements
-//      fetch('https://63c2c490b0c286fbe5f347e9.mockapi.io/soosum', {
-//          method: 'POST',
-//          headers: {
-//              'Content-type': 'application/json',
-//              'Accept': 'application/json',
-//              'Access-Control-Allow-Origin': '*'
-//          },
-//          body: JSON.stringify({
-//              name: el.name.value,
-//              tel: parseInt(el.tel.value)
-//          })
-//      })
-//          .then((res) => res.json())
-//          .then((data) => console.log(data))
-//      e.target.elements.name.value = ''
-//      e.target.elements.tel.value = '998'
-//  }
