@@ -24,7 +24,12 @@ const About = () => {
             </Head>
 
             <main>
-                <h1>About</h1>
+                <h1 style={{
+                    height: "100vh"
+                }}>About</h1>
+                <h1 style={{
+                    height: "100vh"
+                }}>About</h1>
             </main>
         </>
     )

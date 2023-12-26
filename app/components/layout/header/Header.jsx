@@ -6,29 +6,30 @@ import Language from '../../ui/language/Language';
 import styles from './Header.module.scss';
 import { Context } from '../../ui/Context/Context';
 import MyContainer from '../../ui/MyContainer/MyContainer';
+import { getService } from '../../ui/services/get.service';
 
 const Header = () => {
     const { lan, url } = React.useContext(Context);
     const [nav, setNav] = React.useState(false);
-    const [headerData, setHeaderData] = React.useState();
     const { pathname } = useRouter();
+
+    //
+    const [headerData, setHeaderData] = React.useState(); // edit
+    const endpoint = 'menu';// edit
 
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${url}/menu`);
-                if (!response.ok) {
-                    throw new Error(`Ошибка: ${response.status}`);
-                }
-                const data = await response.json();
-                setHeaderData(data);
+                const result = await getService(endpoint, url);
+                setHeaderData(result); // edit
             } catch (error) {
-                console.error(error.message);
+                console.error('Error fetching data:', error);
             }
         };
-        fetchData();
-    }, [url]);
 
+        fetchData();
+    }, []);
+    //
 
     const handleNavClick = () => {
         setNav(false);
@@ -41,7 +42,7 @@ const Header = () => {
                     <Link onClick={handleNavClick} className={styles.header__nav__link} href="/">
                         <Image
                             className={styles.header__nav__link__img}
-                            src={`https://westeracademy.uz/static/assets/img/logo.png`}
+                            src={``}
                             width={157}
                             height={50}
                             alt="logo"
@@ -61,10 +62,10 @@ const Header = () => {
                                 </li>
                             ))) : (
                                 <ul className={styles.header__nav__list}>
-                                    <li className={styles.skeleton}></li>
-                                    <li className={styles.skeleton}></li>
-                                    <li className={styles.skeleton}></li>
-                                    <li className={styles.skeleton}></li>
+                                    <li className={styles.headerSkeleton}></li>
+                                    <li className={styles.headerSkeleton}></li>
+                                    <li className={styles.headerSkeleton}></li>
+                                    <li className={styles.headerSkeleton}></li>
                                 </ul>
                             )
                         }

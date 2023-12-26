@@ -8,28 +8,6 @@ $transition: .5s all ease;
 
 // preventDefault()
 
-
-// <-- GET -->
-
-// const [headerData, setHeaderData] = React.useState();
-
-// React.useEffect(() => {
-//     const fetchData = async () => {
-//         try {
-//             const response = await fetch(`${url}/menu`);
-//             if (!response.ok) {
-//                 throw new Error(`Ошибка: ${response.status}`);
-//             }
-//             const data = await response.json();
-//             setHeaderData(data);
-//         } catch (error) {
-//             console.error(error.message);
-//         }
-//     };
-
-//     fetchData();
-// }, [url]);
-
 // <-- POST -->
 
 //  const formReg = (e) => {
@@ -39,9 +17,9 @@ $transition: .5s all ease;
 //      fetch('https://63c2c490b0c286fbe5f347e9.mockapi.io/soosum', {
 //          method: 'POST',
 //          headers: {
-//              'Content-type': 'application/json', // qysi formatta yuborish
-//              'Accept': 'application/json', // qysi formatta uni qabul qilib olishi
-//              'Access-Control-Allow-Origin': '*' // ruxsat berish hammaga
+//              'Content-type': 'application/json',
+//              'Accept': 'application/json',
+//              'Access-Control-Allow-Origin': '*'
 //          },
 //          body: JSON.stringify({
 //              name: el.name.value,
