@@ -14,14 +14,14 @@ const Header = () => {
     const { pathname } = useRouter();
 
     //
-    const [headerData, setHeaderData] = React.useState(); // edit
-    const endpointGet = 'menu';// edit
+    const [headerData, setHeaderData] = React.useState(); 
+    const endpointGet = 'menu';
 
     React.useEffect(() => {
         const fetchData = async () => {
             try {
                 const result = await getService(endpointGet, url);
-                setHeaderData(result); // edit
+                setHeaderData(result); 
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
