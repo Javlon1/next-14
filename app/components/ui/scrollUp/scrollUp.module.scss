@@ -10,7 +10,6 @@
     z-index: 1000;
     bottom: 30px;
     right: 30px;
-    color: $white;
     background-color: $black;
     border-radius: 50%;
     cursor: pointer;
@@ -19,15 +18,29 @@
     opacity: 0;
     transition: .2s;
     transform: translateY(25px);
+
+    span {
+        display: inline-block;
+        font-size: 1.5rem;
+        color: $white;
+    }
 }
 
-.scrollUp.visible {
+@media only screen and (max-width: 575px) {
+    .scrollUp {
+        width: 40px;
+        height: 40px;
+        bottom: 25px;
+        right: 25px;
+
+        span {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.visible {
     visibility: visible;
     opacity: 1;
     transform: translateY(0);
-}
-
-.scrollUp span {
-    display: inline-block;
-    font-size: 1.5rem;
 }

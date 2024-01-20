@@ -30,6 +30,6 @@ const ScrollUp = () => {
             <span>&uarr;</span>
         </div>
     );
-};
+}; 
 
 export default ScrollUp;

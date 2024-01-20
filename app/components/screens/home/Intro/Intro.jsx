@@ -12,7 +12,7 @@ const Intro = () => {
     return (
         <section className={styles.intro}>
             <MyContainer>
-                <h1>Intro next 14</h1>
+                <h1>Intro next 14-{lan}</h1>
             </MyContainer>
         </section>
     )

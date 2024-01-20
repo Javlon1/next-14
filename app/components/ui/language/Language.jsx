@@ -1,10 +1,9 @@
 import * as React from 'react'
 import styles from './Language.module.scss'
-import { Lang } from '../data/data';
 import { Context } from '../Context/Context';
 
 const Language = () => {
-
+    const [Lang] = React.useState([{ id: 1, lang: 'ru' }, { id: 2, lang: 'en' }])
     const { lan, setLan } = React.useContext(Context)
 
     const handleChange = (event) => {
