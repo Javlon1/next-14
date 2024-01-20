@@ -1,75 +1,32 @@
-export const postService = async (url, endpointPost, data) => {
-    const fullUrl = `${url}/${endpointPost}`;
-
-    try {
-        const response = await fetch(fullUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const responseData = await response.json();
-        return responseData;
-    } catch (error) {
-        console.error('Error posting data:', error);
-        throw new Error('Error posting data');
-    }
-};
-
-
-//
-// const [formData, setFormData] = useState({
-    //     name: '',
-    //     tel: '998',
-    // });
-// const endpointPost = 'menu';// edit
-
-// const [postLoading, setPostLoading] = useState(false);
-// const [postError, setPostError] = useState(null);
-
-// const handleInputChange = (e) => {
-//     setFormData({
-//         ...formData,
-//         [e.target.name]: e.target.value,
+// const endpointPost = 'register';// edit
+// const fullUrl = `${urlApi}/${endpointPost}/`;
+// try {
+//     const response = await fetch(fullUrl, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+                        // 'Authorization': `Token ${auth_token}`,
+//         },
+//         body: JSON.stringify({
+//             email: formData.email,
+//             password: formData.password,
+//         }),
 //     });
-// };
 
-// const handleSubmit = async (e) => {
-//     e.preventDefault();
+//     setFormData({
+//         email: '',
+//         password: '',
+//         password2: '',
+//     });
 
-//     setPostError(null);
-
-//     try {
-//         setPostLoading(true);
-
-//         const data = await postService(url, endpointPost, {
-//             name: formData.name,
-//             tel: formData.tel,
-//         });
-
-//         console.log('Data successfully posted:', data);
-
-//         setFormData({
-//             name: '',
-//             tel: '998',
-//         });
-//     } catch (error) {
-//         setPostError(error.message);
-//     } finally {
-//         setPostLoading(false);
+//     if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//     } else if (response.ok) {
+//         router.push('/register-success');
 //     }
-// };
-// //
 
-// <button type="submit" disabled={postLoading}>
-//     {postLoading ? 'Submitting...' : 'Submit'}
-// </button>
-
-// { postError && <p style={{ color: 'red' }}>{postError}</p> }
+//     const data = await response.json();
+//     console.log('Response data:', data);
+// } catch (error) {
+//     console.error('Error during POST request:', error);
+// }

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /public/
+Sitemap: https://chikim.vercel.app/api/my-sitemap

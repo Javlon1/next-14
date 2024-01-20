@@ -1,41 +1,33 @@
-export const getService = async (endpointGet, url) => {
-
-    const fullUrl = `${url}/${endpointGet}`;
-
-    try {
-        const response = await fetch(fullUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        throw new Error('Error fetching data');
-    }
-};
-
-//
-// const [data, setData] = React.useState(); // edit
-// const endpointGet = 'menu';// edit
+// const endpointGet = 'limit';
+// const fullUrl = `${urlApi}/${endpointGet}/`;
 
 // React.useEffect(() => {
 //     const fetchData = async () => {
 //         try {
-//             const result = await getService(endpointGet, url);
-//             setData(result); // edit
+//             const response = await fetch(fullUrl, {
+//                 method: 'GET',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+                        // 'Authorization': `Token ${auth_token}`,
+//                 },
+//             });
+
+//             if (!response.ok) {
+//                 throw new Error(`Ошибка: ${response.status}`);
+//             }
+
+//             const data = await response.json();
+
+//             if (data) {
+//                 setTotalPrice(data.limit);
+//             } else {
+//                 console.error('Ошибка: Некорректные данные получены от сервера.');
+//             }
+
 //         } catch (error) {
-//             console.error('Error fetching data:', error);
+//             console.error('Ошибка при запросе данных:', error.message);
 //         }
 //     };
 
 //     fetchData();
-// }, []);
-//
+// }, [fullUrl]);

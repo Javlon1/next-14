@@ -6,29 +6,46 @@ import Language from '../../ui/language/Language';
 import styles from './Header.module.scss';
 import { Context } from '../../ui/Context/Context';
 import MyContainer from '../../ui/MyContainer/MyContainer';
-import { getService } from '../../ui/services/get.service';
 
 const Header = () => {
     const { lan, url } = React.useContext(Context);
     const [nav, setNav] = React.useState(false);
     const { pathname } = useRouter();
+    const [headerData, setHeaderData] = React.useState();
 
     //
-    const [headerData, setHeaderData] = React.useState(); 
     const endpointGet = 'menu';
+    const fullUrl = `${url}/${endpointGet}/`;
 
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await getService(endpointGet, url);
-                setHeaderData(result); 
+                const response = await fetch(fullUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data) {
+                    setHeaderData(data);
+                } else {
+                    console.error('Ошибка: Некорректные данные получены от сервера.');
+                }
+
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Ошибка при запросе данных:', error.message);
             }
         };
 
         fetchData();
-    }, []);
+    }, [fullUrl]);
     //
 
     const handleNavClick = () => {
