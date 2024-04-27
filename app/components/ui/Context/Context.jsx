@@ -4,6 +4,7 @@ const Context = createContext()
 function Provider({ children }) {
     // const [url] = useState("https://next-14-53v1.vercel.app/api")
     const [url] = useState("http://localhost:3000/api")
+    const [close, setClose] = useState(false);
 
     const [lan, setLan] = useState(() => {
         const storedLanguage = typeof window !== 'undefined' ? window.localStorage.getItem('lan') : null;
@@ -17,7 +18,7 @@ function Provider({ children }) {
     }, [lan]);
 
     return (
-        <Context.Provider value={{ lan, setLan, url }}>
+        <Context.Provider value={{ lan, setLan, url, close, setClose }}>
             {children}
         </Context.Provider>
     )

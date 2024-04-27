@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Head from 'next/head'
 import Intro from '@/app/components/screens/home/Intro/Intro';
-import ScrollUp from '@/app/components/ui/scrollUp/scrollUp';
 
 const Index = () => {
 
@@ -25,10 +24,7 @@ const Index = () => {
                 <title>Home</title>
             </Head>
 
-            <main>
-                <Intro />
-                <Intro />
-            </main>
+            <Intro />
         </>
     )
 }
